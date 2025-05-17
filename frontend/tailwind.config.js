@@ -13,19 +13,25 @@ module.exports = {
           dark: '#A10014',
         },
         secondary: {
-          DEFAULT: '#FFFFFF', // Traditional white
-          dark: '#F3F3F3',
+          DEFAULT: '#F8F9FA', // Light background
+          dark: '#E9ECEF',
           light: '#FFFFFF',
         },
         neutral: {
-          DEFAULT: '#121212',
-          light: '#3A3A3A',
-          lighter: '#717171',
-          dark: '#0A0A0A',
+          DEFAULT: '#343A40',
+          light: '#6C757D',
+          lighter: '#ADB5BD',
+          dark: '#212529',
         },
         accent: {
           DEFAULT: '#F5B700', // Gold accent
           dark: '#D69E00',
+          light: '#FFD54F',
+        },
+        light: {
+          DEFAULT: '#FFFFFF',
+          dark: '#F8F9FA',
+          darker: '#E9ECEF',
         }
       },
       fontFamily: {

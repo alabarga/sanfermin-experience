@@ -1,54 +1,80 @@
-import { useEffect } from "react";
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { BrowserRouter } from "react-router-dom";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Import components
+import Navbar from "./components/Navbar/Navbar";
+import HeroSection from "./components/HeroSection/HeroSection";
+import AboutSection from "./components/AboutSection/AboutSection";
+import AccommodationSection from "./components/AccommodationSection/AccommodationSection";
+import PackagesSection from "./components/PackagesSection/PackagesSection";
+import GallerySection from "./components/GallerySection/GallerySection";
+import ScheduleSection from "./components/ScheduleSection/ScheduleSection";
+import ConcertsSection from "./components/ConcertsSection/ConcertsSection";
+import TestimonialsSection from "./components/TestimonialsSection/TestimonialsSection";
+import ContactSection from "./components/ContactSection/ContactSection";
+import FaqSection from "./components/FaqSection/FaqSection";
+import Footer from "./components/Footer/Footer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Google Analytics
+import ReactGA from "react-ga4";
 
+const App = () => {
   useEffect(() => {
-    helloWorldApi();
+    // Initialize Google Analytics
+    ReactGA.initialize("G-XXXXXXXXXX"); // Replace with your actual GA measurement ID
+    
+    // Send initial pageview
+    ReactGA.send("pageview");
+    
+    // Activate reveal animations on scroll
+    const handleScroll = () => {
+      const reveals = document.querySelectorAll(".reveal");
+      
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
+        }
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check on initial load
+    
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="App min-h-screen flex flex-col"
+      >
+        <Navbar />
+        <main>
+          <HeroSection />
+          <AboutSection />
+          <AccommodationSection />
+          <PackagesSection />
+          <GallerySection />
+          <ScheduleSection />
+          <ConcertsSection />
+          <TestimonialsSection />
+          <ContactSection />
+          <FaqSection />
+        </main>
+        <Footer />
+        <ScrollToTop />
+      </motion.div>
+    </BrowserRouter>
   );
 };
-
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  );
-}
 
 export default App;

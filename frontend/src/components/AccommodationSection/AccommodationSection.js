@@ -53,7 +53,7 @@ const AccommodationSection = () => {
   ];
 
   return (
-    <section id="accommodation" className="section-padding bg-neutral-dark text-white relative overflow-hidden">
+    <section id="accommodation" className="section-padding bg-neutral text-white relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{

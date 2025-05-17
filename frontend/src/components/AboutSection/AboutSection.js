@@ -60,7 +60,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="relative section-padding bg-white overflow-hidden">
+    <section id="about" className="relative section-padding bg-light overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -128,7 +128,7 @@ const AboutSection = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="card bg-white p-6 flex flex-col items-center text-center"
+              className="card bg-white p-6 flex flex-col items-center text-center hover:shadow-lg"
             >
               <div className="mb-4 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                 {card.icon}

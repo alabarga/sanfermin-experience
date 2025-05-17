@@ -72,23 +72,29 @@ const HeroSection = () => {
 
   return (
     <section id="hero" className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-dark/70 via-neutral-dark/50 to-neutral-dark/70 z-10"></div>
-        <video 
-          className="absolute w-full h-full object-cover"
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-        >
-          <source src="https://player.vimeo.com/external/431929489.sd.mp4?s=2bebe45c50207b0c613c2338dd9972fb3a5ab76e&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+      {/* YouTube Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden bg-neutral-dark">
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-dark/80 via-neutral-dark/60 to-neutral-dark/80 z-20 pointer-events-none"></div>
+        
+        <div className="absolute inset-0 w-full h-full z-10">
+          <div className="relative w-full h-full">
+            <iframe 
+              src="https://www.youtube.com/embed/HwGLnQUeenY?autoplay=1&mute=1&controls=0&loop=1&playlist=HwGLnQUeenY&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&widgetid=1&hd=1" 
+              title="San Fermín Festival Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto min-w-[100%] h-auto min-h-[100%] object-cover"
+              style={{ 
+                width: "150%", 
+                height: "150%" 
+              }}
+            ></iframe>
+          </div>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="container-custom relative z-20">
+      <div className="container-custom relative z-30">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
           initial="hidden"
@@ -150,7 +156,7 @@ const HeroSection = () => {
       
       {/* Bottom scroll indicator */}
       <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-30"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
       >

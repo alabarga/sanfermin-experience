@@ -4,6 +4,40 @@
 @tailwind components;
 @tailwind utilities;
 
+/* React Datepicker styles */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker {
+  font-family: 'Raleway', sans-serif;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.react-datepicker__header {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  padding-top: 0.5rem;
+}
+
+.react-datepicker__day--selected, 
+.react-datepicker__day--in-selecting-range, 
+.react-datepicker__day--in-range {
+  background-color: #D10019;
+  color: white;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: rgba(209, 0, 25, 0.5);
+  color: white;
+}
+
+.react-datepicker__day:hover {
+  background-color: #f3f4f6;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

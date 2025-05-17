@@ -63,28 +63,32 @@ const HeroSection = () => {
 
   const CountdownItem = ({ value, label }) => (
     <div className="flex flex-col items-center">
-      <div className="bg-white/10 backdrop-blur-md text-white text-2xl md:text-4xl font-bold w-16 md:w-24 h-16 md:h-24 rounded-xl flex items-center justify-center shadow-lg border border-white/10">
+      <div className="bg-white/20 backdrop-blur-md text-white text-2xl md:text-4xl font-bold w-16 md:w-24 h-16 md:h-24 rounded-xl flex items-center justify-center shadow-lg border border-white/20">
         {value}
       </div>
-      <span className="text-white/80 text-xs md:text-sm mt-2">{label}</span>
+      <span className="text-white/90 text-xs md:text-sm mt-2">{label}</span>
     </div>
   );
 
   return (
     <section id="hero" className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ 
-          backgroundImage: "url('https://images.unsplash.com/photo-1562424292-1fa246a0ff4b?ixlib=rb-4.0.3&q=90&fm=jpg&crop=entropy&cs=tinysrgb&w=1600')", 
-          backgroundPosition: "center 30%"
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-dark/85 via-neutral-dark/70 to-neutral-dark/90"></div>
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-dark/70 via-neutral-dark/50 to-neutral-dark/70 z-10"></div>
+        <video 
+          className="absolute w-full h-full object-cover"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+        >
+          <source src="https://player.vimeo.com/external/431929489.sd.mp4?s=2bebe45c50207b0c613c2338dd9972fb3a5ab76e&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
 
       {/* Content */}
-      <div className="container-custom relative z-10">
+      <div className="container-custom relative z-20">
         <motion.div 
           className="max-w-4xl mx-auto text-center"
           initial="hidden"
@@ -92,7 +96,7 @@ const HeroSection = () => {
           variants={heroVariants}
         >
           <motion.div variants={itemVariants} className="mb-4">
-            <span className="inline-block px-4 py-1 bg-primary/80 text-white rounded-full text-sm md:text-base font-medium mb-4">6-14 July 2025</span>
+            <span className="inline-block px-4 py-1 bg-primary/90 text-white rounded-full text-sm md:text-base font-medium mb-4">6-14 July 2025</span>
           </motion.div>
           
           <motion.h1 
@@ -104,7 +108,7 @@ const HeroSection = () => {
           
           <motion.p 
             variants={itemVariants}
-            className="text-white/80 mb-8 max-w-2xl mx-auto"
+            className="text-white/90 mb-8 max-w-2xl mx-auto"
           >
             Exclusive packages with premium accommodation, VIP event access, and unforgettable experiences at the world-famous Running of the Bulls festival in Pamplona, Spain.
           </motion.p>
@@ -136,7 +140,7 @@ const HeroSection = () => {
               to="about" 
               smooth={true} 
               duration={800}
-              className="btn btn-secondary text-lg px-8 py-4"
+              className="btn btn-secondary text-lg px-8 py-4 bg-white/20 backdrop-blur-sm text-white hover:bg-white/30"
             >
               Learn More
             </ScrollLink>
@@ -146,14 +150,14 @@ const HeroSection = () => {
       
       {/* Bottom scroll indicator */}
       <motion.div 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
       >
         <ScrollLink to="about" smooth={true} duration={800} className="cursor-pointer">
-          <div className="w-[30px] h-[50px] rounded-full border-2 border-white/30 flex justify-center p-1">
+          <div className="w-[30px] h-[50px] rounded-full border-2 border-white/50 flex justify-center p-1">
             <motion.div 
-              className="w-1 h-3 bg-white/60 rounded-full"
+              className="w-1 h-3 bg-white/80 rounded-full"
               animate={{ y: [0, 15, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, delay: 0.3 }}
             />

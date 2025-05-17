@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+// Import Swiper and modules
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -10,6 +18,10 @@ const GallerySection = () => {
     threshold: 0.1,
     triggerOnce: false
   });
+  
+  // Refs for custom navigation
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
   useEffect(() => {
     if (inView) {
@@ -111,14 +123,14 @@ const GallerySection = () => {
   };
 
   return (
-    <section id="gallery" className="section-padding bg-white relative overflow-hidden">
+    <section id="gallery" className="relative section-padding bg-light-dark overflow-hidden">
       <div className="container-custom">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={controls}
           variants={containerVariants}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <motion.h2 variants={itemVariants} className="section-title">
             San Fermín Gallery
@@ -127,19 +139,85 @@ const GallerySection = () => {
             Glimpses of the excitement and tradition that await you
           </motion.p>
         </motion.div>
+      </div>
 
+      {/* Full-width image slider */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate={controls}
+        className="w-full overflow-hidden mb-10 relative"
+      >
+        <div className="relative gallery-slider-container">
+          <Swiper
+            modules={[Navigation, Pagination, Autoplay, EffectFade]}
+            spaceBetween={0}
+            slidesPerView={1}
+            effect="fade"
+            centeredSlides={true}
+            speed={1000}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+              dynamicBullets: true,
+            }}
+            navigation={{
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            onInit={(swiper) => {
+              // Override navigation after init
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }}
+            className="w-full h-[70vh]"
+          >
+            {galleryImages.map((image, index) => (
+              <SwiperSlide key={index} className="relative">
+                <div className="relative w-full h-[70vh]">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark/60 to-transparent flex flex-col justify-end items-center pb-16 text-white">
+                    <h3 className="text-2xl font-bold mb-2">{image.alt}</h3>
+                    <p className="text-white/80 capitalize">{image.category}</p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          
+          {/* Custom navigation */}
+          <div ref={prevRef} className="absolute left-4 top-1/2 z-10 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-primary transition-colors duration-300 text-white">
+            <FaChevronLeft size={24} />
+          </div>
+          <div ref={nextRef} className="absolute right-4 top-1/2 z-10 transform -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-primary transition-colors duration-300 text-white">
+            <FaChevronRight size={24} />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Thumbnail grid */}
+      <div className="container-custom">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={controls}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-2"
         >
           {galleryImages.map((image, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="aspect-square rounded-xl overflow-hidden shadow-lg cursor-pointer"
+              className="aspect-square rounded-lg overflow-hidden shadow-md cursor-pointer"
               onClick={() => handleImageClick(image)}
             >
               <img
@@ -160,7 +238,7 @@ const GallerySection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-overlay"
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-overlay"
             onClick={handleClickOutside}
           >
             <motion.div
@@ -168,7 +246,7 @@ const GallerySection = () => {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="relative w-full max-w-4xl bg-white rounded-xl overflow-hidden"
+              className="relative w-full max-w-5xl bg-white rounded-xl overflow-hidden"
             >
               <button
                 onClick={closeModal}
